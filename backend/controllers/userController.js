@@ -21,16 +21,20 @@ export const getAllUsers = async (req, res) => {
 // Create a user
 export const signup = async (req, res) => {
   console.log(chalk.bgCyan("incoming call to signup api"));
+  if (!req.body) {
+    return req.status(400).json({ message: "Bad request" })
+  }
   try {
     const user = await userSchema.validateAsync(req.body);
-    const password = bcrypt.hashSync(user.password, 10);
-    const newUser = new User({ ...user, password });
+    const password = await bcrypt.hash(user.password, 10);
+    const newUser = await User.create({ ...user, password: password })
+    // const newUser =  new User({ ...user, password });
 
     await newUser.save();
 
     res.status(201).json({
       message: "User created successfully",
-      user: newUser,
+      user: { id: newUser.id, email: newUser.email },
     });
   } catch (error) {
     if (error?.code === 11000) {
@@ -39,7 +43,7 @@ export const signup = async (req, res) => {
         error: error.message,
       });
     }
-
+    console.error(chalk.bgRed("Signup Error:"), error);
     res.status(500).json({
       message: "Internal Server Error",
       error: error.message,
