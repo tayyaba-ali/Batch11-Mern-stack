@@ -40,7 +40,7 @@ const Login = () => {
 				toast.success(data.message);
 				navigate('/');
 			} else {
-				toast.error(data.error || 'Invalid credentials');
+				toast.error(data.message || 'Invalid credentials');
 			}
 		} catch (error) {
 			setLoading(false);

@@ -2,6 +2,8 @@ import userSchema from "../schema/userSchema.js";
 import User from "../Models/User.js";
 import chalk from "chalk";
 import bcrypt from "bcrypt";
+import  jwt from 'jsonwebtoken'
+import "dotenv/config"
 
 //get All users
 export const getAllUsers = async (req, res) => {
@@ -110,15 +112,15 @@ export const login = async (req, res) => {
     }
 
     const user = await User.findOne({ email: req.body.email });
-    const match = await bcrypt.compare(req.body.password, user.password);
-
+    
     if (!user) {
       console.error("❌ User not found with email:", req.body.email);
       return res
-        .status(400)
-        .json({ success: false, message: "Invalid credentials" });
+      .status(400)
+      .json({ success: false, message: "Invalid Email" });
     }
-  
+    
+    const match = await bcrypt.compare(req.body.password, user.password);
 	if(!match){
 		return res.status(401).json({
 			success: false,
@@ -126,10 +128,13 @@ export const login = async (req, res) => {
 		
 		  });
 	}
+  var token = jwt.sign({...user}, process.env.JWT_SECRETKEY);
+  console.log(chalk.bgBlue.white(token))
     res.status(200).json({
       success: true,
       message: "User signed in",
       user: { id: user.id },
+      token
     });
   } catch (error) {
     console.log(chalk.bgRed.white(error));

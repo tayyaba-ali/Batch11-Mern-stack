@@ -3,6 +3,7 @@ const app = express();
 import cors from "cors";
 import userRoutes from "./routes/userRoutes.js";
 import connectToDb from "./db/db.js";
+import cartRoutes from "./routes/cartRoutes.js"
 
 app.use(cors());
 app.use(express.json());
@@ -18,6 +19,7 @@ connectToDb()
 //   res.send("server is active")
 // })
 app.use("/api/auth", userRoutes);
+app.use("/api/cart",cartRoutes)
 
 // app.use('/api/products', productRoutes);
 
