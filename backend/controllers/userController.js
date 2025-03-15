@@ -1,8 +1,9 @@
-import userSchema from '../schema/userSchema.js';
-import User from '../Models/User.js';
-import chalk from 'chalk';
-import bcrypt from 'bcrypt';
-
+import userSchema from "../schema/userSchema.js";
+import User from "../Models/User.js";
+import chalk from "chalk";
+import bcrypt from "bcrypt";
+import  jwt from 'jsonwebtoken'
+import "dotenv/config"
 
 //get All users
 export const getAllUsers = async (req, res) => {
@@ -21,12 +22,15 @@ export const getAllUsers = async (req, res) => {
 
 // Create a user
 export const signup = async (req, res) => {
-	console.log(chalk.bgCyan('incoming call to signup api'));
-	console.log('req.body', req.body);
-	try {
-		const user = await userSchema.validateAsync(req.body);
-		const password = bcrypt.hashSync(user.password, 10);
-		const newUser = new User({ ...user, password });
+  console.log(chalk.bgCyan("incoming call to signup api"));
+  if (!req.body) {
+    return req.status(400).json({ message: "Bad request" })
+  }
+  try {
+    const user = await userSchema.validateAsync(req.body);
+    const password = await bcrypt.hash(user.password, 10);
+    const newUser = await User.create({ ...user, password: password })
+    // const newUser =  new User({ ...user, password });
 
 		await newUser.save();
 
