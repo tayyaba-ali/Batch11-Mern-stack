@@ -35,12 +35,12 @@ const Login = () => {
 
 			const data = await response.json();
 			setLoading(false);
-
 			if (response.ok) {
 				toast.success(data.message);
+
 				navigate('/');
 			} else {
-				toast.error(data.error || 'Invalid email or password');
+				toast.error(data.message || 'Invalid email or password');
 			}
 		} catch (error) {
 			setLoading(false);

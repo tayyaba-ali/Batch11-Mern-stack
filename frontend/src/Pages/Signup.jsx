@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+
 import * as Yup from 'yup';
 
 const validationSchema = Yup.object({
@@ -50,7 +52,7 @@ const Signup = () => {
 
 							const data = await response.json();
 							setLoading(false);
-              if (response.ok) {
+							if (response.ok) {
 								toast.success(data.message);
 								navigate('/login');
 							} else {
@@ -87,12 +89,20 @@ const Signup = () => {
 
 						<div>
 							<label className='block text-sm font-medium text-gray-700'>Password</label>
-							<Field
-								name='password'
-								type={showPassword ? 'text' : 'password'}
-								className='w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent'
-								placeholder='Enter your password'
-							/>
+							<div className='relative'>
+								<Field
+									name='password'
+									type={showPassword ? 'text' : 'password'}
+									className='w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+									placeholder='Enter your password'
+								/>
+								<button
+									type='button'
+									className='absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600 focus:outline-none'
+									onClick={() => setShowPassword(!showPassword)}>
+									{showPassword ? <FaEyeSlash /> : <FaEye />}
+								</button>
+							</div>
 							<ErrorMessage name='password' component='p' className='text-red-500 text-sm' />
 						</div>
 
