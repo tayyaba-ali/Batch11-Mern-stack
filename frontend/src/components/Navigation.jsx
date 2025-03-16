@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { FaBars, FaTimes, FaHome, FaShoppingCart } from 'react-icons/fa';
-import logo from '../assets/images/logo (4).png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+	faBars,
+	faSearch,
+	faGift,
+	faShoppingBag,
+	faChevronDown,
+	faTimes,
+	faHome,
+} from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/free-regular-svg-icons';
+import { Link } from 'react-router-dom'; // Import Link for routing
+import logo from '../assets/images/logo.png';
 
 const Navigation = () => {
-	const [isOpen, setIsOpen] = useState(false);
+	const [ isOpen, setIsOpen ] = useState(false);
 
 	const toggleMenu = () => {
 		setIsOpen(!isOpen);
@@ -16,29 +26,38 @@ const Navigation = () => {
 				<div className='flex items-center justify-between h-16'>
 					<div className='flex-shrink-0'>
 						<Link to='/'>
-							<img className='h-8 w-auto md:h-10' src={logo} alt='logo' />
+							<img className='h-8 w-auto md:h-30' src={logo} alt='logo' />
 						</Link>
 					</div>
 
-					<div className='hidden sm:flex space-x-6'>
-						<NavLink to='/' icon={<FaHome />} text='Home' />
+					<div className='hidden sm:flex space-x-6 '>
+						<NavLink to='/' icon={faHome} text='Home' />
 						<NavLink to='/products' text='Products' />
 						<NavLink to='/about' text='About' />
 						<NavLink to='/contact' text='Contact' />
-						<NavLink to='/signup' text='Sign Up' />
-						<NavLink to='/login' text='Login' />
+								<NavLink to='/signup' text='Sign Up' />
+								<NavLink to='/login' text='Login' />
 					</div>
 
-					<div className='hidden lg:flex items-center'>
-						<Link to='/cart' className='relative flex items-center'>
-							<FaShoppingCart className='h-6 w-6 sm:h-8 sm:w-8 hover:text-[#4bf6d4] transition duration-300' />
-						</Link>
-					</div>
+					<div className='flex gap-6'>
+						<div className='flex items-center'>
+							<Link to='/cart' className='relative flex items-center'>
+								<FontAwesomeIcon
+									icon={faShoppingBag}
+									className='h-6 w-6 sm:h-8 sm:w-8 hover:text-[#4bf6d4] transition duration-300'
+								/>
+							</Link>
+						</div>
 
-					<div className='sm:hidden'>
-						<button onClick={toggleMenu} className='text-gray-500 hover:text-[#BD1521] focus:outline-none'>
-							{isOpen ? <FaTimes className='h-6 w-6' /> : <FaBars className='h-6 w-6' />}
-						</button>
+						<div className='sm:hidden'>
+							<button onClick={toggleMenu} className='text-gray-500 hover:text-[#BD1521] focus:outline-none'>
+								{isOpen ? (
+									<FontAwesomeIcon icon={faTimes} className='h-6 w-6' />
+								) : (
+									<FontAwesomeIcon icon={faBars} className='h-6 w-6' />
+								)}
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -49,8 +68,8 @@ const Navigation = () => {
 					<NavLinkMobile to='/products' text='Products' onClick={toggleMenu} />
 					<NavLinkMobile to='/about' text='About' onClick={toggleMenu} />
 					<NavLinkMobile to='/contact' text='Contact' onClick={toggleMenu} />
-					<NavLinkMobile to='/signup' text='Sign Up' onClick={toggleMenu} />
-					<NavLinkMobile to='/login' text='Login' onClick={toggleMenu} />
+							<NavLinkMobile to='/signup' text='Sign Up' />
+							<NavLinkMobile to='/login' text='Login' />
 				</div>
 			</div>
 		</nav>
@@ -59,7 +78,11 @@ const Navigation = () => {
 
 const NavLink = ({ to, icon, text }) => (
 	<Link to={to} className='flex items-center text-gray-700 hover:text-[#4bf6d4] transition duration-300 relative group'>
-		{icon && <span className='mr-2'>{icon}</span>}
+		{icon && (
+			<span className='mr-2'>
+				<FontAwesomeIcon icon={icon} />
+			</span>
+		)}
 		<span>{text}</span>
 		<span className='absolute bottom-0 left-0 w-full bg-[#4bf6d4] h-0.5 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left'></span>
 	</Link>
