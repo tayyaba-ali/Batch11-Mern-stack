@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '../store/authSlice';
 
 const Login = () => {
 	const [formData, setFormData] = useState({
 		email: '',
 		password: '',
 	});
+	const dispatch = useDispatch()
 
 	const [loading, setLoading] = useState(false);
 	const [showPassword, setShowPassword] = useState(false);
@@ -36,6 +39,12 @@ const Login = () => {
 			const data = await response.json();
 			setLoading(false);
 			if (response.ok) {
+				localStorage.setItem("token",data.token)
+				localStorage.setItem("userId",data.user.id)
+				dispatch(loginSuccess({
+					token:data.token,
+					userId:data.userId
+				}))
 				toast.success(data.message);
 
 				navigate('/');

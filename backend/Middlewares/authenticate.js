@@ -11,6 +11,7 @@ const authenticate = (req, res, next) => {
 	} else {
 		try {
 			const token = req.headers.authorization.trim().split(' ')[1];
+			console.log(token)
 			console.log('token type--->', typeof token);
 			const decoded = jwt.verify(token, process.env.JWT_SECRETKEY);
 			console.log(decoded)
