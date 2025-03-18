@@ -1,9 +1,9 @@
-import userSchema from "../schema/userSchema.js";
-import User from "../Models/User.js";
-import chalk from "chalk";
-import bcrypt from "bcrypt";
-import  jwt from 'jsonwebtoken'
-import "dotenv/config"
+import userSchema from '../schema/userSchema.js';
+import User from '../Models/User.js';
+import chalk from 'chalk';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import 'dotenv/config';
 
 //get All users
 export const getAllUsers = async (req, res) => {
@@ -22,15 +22,15 @@ export const getAllUsers = async (req, res) => {
 
 // Create a user
 export const signup = async (req, res) => {
-  console.log(chalk.bgCyan("incoming call to signup api"));
-  if (!req.body) {
-    return req.status(400).json({ message: "Bad request" })
-  }
-  try {
-    const user = await userSchema.validateAsync(req.body);
-    const password = await bcrypt.hash(user.password, 10);
-    const newUser = await User.create({ ...user, password: password })
-    // const newUser =  new User({ ...user, password });
+	console.log(chalk.bgCyan('incoming call to signup api'));
+	if (!req.body) {
+		return req.status(400).json({ message: 'Bad request' });
+	}
+	try {
+		const user = await userSchema.validateAsync(req.body);
+		const password = await bcrypt.hash(user.password, 10);
+		const newUser = await User.create({ ...user, password: password });
+		// const newUser =  new User({ ...user, password });
 
 		await newUser.save();
 
@@ -106,29 +106,42 @@ export const login = async (req, res) => {
 		}
 
 		const user = await User.findOne({ email: req.body.email });
-    
+
 		if (!user) {
-      console.error('❌ User not found with email:', req.body.email);
+			console.error('❌ User not found with email:', req.body.email);
 			return res.status(400).json({ success: false, message: 'Invalid email' });
 		}
-    const match = await bcrypt.compare(req.body.password, user.password);
+		const match = await bcrypt.compare(req.body.password, user.password);
 
 		if (!match) {
 			return res.status(401).json({
 				success: false,
 				message: 'Unauthorized password',
 			});
-    }
-      var token = jwt.sign({ ...user }, process.env.JWT_SECRETKEY);
-			console.log(chalk.bgBlue.white(token));
+		}
+		var token = jwt.sign({ ...user }, process.env.JWT_SECRETKEY);
+		console.log(chalk.bgBlue.white(token));
 		res.status(200).json({
 			success: true,
 			message: 'User signed in',
 			user: { id: user.id },
-			token
+			token,
 		});
 	} catch (error) {
 		console.log(chalk.bgRed.white(error));
 		res.status(500).json({ message: 'Internal server error', error });
 	}
+};
+
+// checking if the user is admin or not
+
+export const isAdmin = async (req, res) => {
+	try {
+		const {id: userId } = req.user;
+
+		const role = await User.findById(userId).select('role');
+   
+		
+		console.log(chalk.bgCyan.white(role));
+	} catch (error) {}
 };

@@ -13,6 +13,15 @@ const databaseUser = mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	role: {
+		type: String,
+		default: 'user',
+		enum: ['user', 'seller'], 
+	},
+	isCustomer: {
+		type: Boolean,
+		default: false, 
+	},
 });
 
 databaseUser.index({email: 1,},{ unique: true },);
