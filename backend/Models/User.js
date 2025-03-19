@@ -16,7 +16,7 @@ const databaseUser = mongoose.Schema({
 	role: {
 		type: String,
 		default: 'user',
-		enum: ['user', 'seller'], 
+		enum: ['user', 'admin'], 
 	},
 	isCustomer: {
 		type: Boolean,

@@ -19,9 +19,8 @@ const authenticate = async (req, res, next) => {
 		const decoded = jwt.verify(token, process.env.JWT_SECRETKEY);
 
 		// ✅ Check if user exists and tokenVersion matches
-		const user = await User.findById(decoded._doc);
-		console.log('decoded._doc._id-->', user._id);
-		console.log(chalk.bgGreen.white(user));
+		const user = await User.findById(decoded._doc._id);
+		console.log('database user-->', user);
 		if (!user) {
 			return res.status(401).json({
 				success: false,
