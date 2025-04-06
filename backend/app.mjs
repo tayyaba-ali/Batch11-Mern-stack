@@ -38,8 +38,12 @@ app.use('/api/auth', userRoutes);
 app.use('/api/cart', cartRoutes);
 
 
+
 // app.use('/api/products', productRoutes);
 
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
 app.listen(PORT, () => {
 	console.log('server is listening 5000');
 });
