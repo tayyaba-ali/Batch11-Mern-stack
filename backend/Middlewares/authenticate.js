@@ -18,6 +18,7 @@ const authenticate = async (req, res, next) => {
 
 		// ✅ Verify JWT token using the correct secret
 		const decoded = jwt.verify(token, process.env.JWT_SECRETKEY);
+		console.log(chalk.blue('Decoded Token:', decoded));
 
 		// ✅ Check if user exists and tokenVersion matches
 		const user = await User.findById(decoded._doc._id);
