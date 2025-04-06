@@ -7,7 +7,7 @@ import cors from "cors";
 import userRoutes from "./routes/userRoutes.js";
 import connectToDb from "./db/db.js";
 import cartRoutes from "./routes/cartRoutes.js"
-
+import productRoutes from "./routes/productRoutes.js"
 
 
 app.use(
@@ -34,8 +34,10 @@ connectToDb();
 //   res.send("server is active")
 // })
 
+
 app.use('/api/auth', userRoutes);
 app.use('/api/cart', cartRoutes);
+app.use('/api/products', productRoutes);
 
 
 
