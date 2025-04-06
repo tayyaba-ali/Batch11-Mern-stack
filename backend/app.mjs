@@ -1,5 +1,7 @@
 import express from 'express';
 const app = express();
+const PORT = process.env.PORT || 5000;
+import path from 'path';
 
 import cors from "cors";
 import userRoutes from "./routes/userRoutes.js";
@@ -7,14 +9,20 @@ import connectToDb from "./db/db.js";
 import cartRoutes from "./routes/cartRoutes.js"
 
 
+
 app.use(
 	cors({
-		origin: ['http://localhost:5173', 'http://localhost:5174'],
+		origin: ['http://localhost:5173', 'http://localhost:5174',"https://batch11-mern-stack-1.onrender.com"],
 		methods: ['GET', 'PUT', 'POST', 'DELETE'],
 		credentials: true,
 		allowedHeaders: ['Content-Type', 'Authorization'],
 	}),
 );
+const __dirname = path.resolve();
+
+// Serve static frontend files
+app.use(express.static(path.join(__dirname, 'dist')));
+
 app.use(express.json());
 
 // connect to db
@@ -32,6 +40,6 @@ app.use('/api/cart', cartRoutes);
 
 // app.use('/api/products', productRoutes);
 
-app.listen(5000, () => {
+app.listen(PORT, () => {
 	console.log('server is listening 5000');
 });
