@@ -1,7 +1,7 @@
 {
   "name": "class4",
   "version": "1.0.0",
-  "main": "app.mjs",
+  "main": "api/app.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.mjs",
