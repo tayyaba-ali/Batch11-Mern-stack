@@ -9,7 +9,7 @@ const AdminDashboard = () => {
 	const [totalProducts, setTotalProducts] = useState(0);
 
 	const navigate = useNavigate();
-	const API_URL = 'http://localhost:5000/api';
+	const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
 	// ✅ Check if the user is an admin before allowing access
 	const checkAdminStatus = async () => {
@@ -23,7 +23,7 @@ const AdminDashboard = () => {
 		}
 
 		try {
-			const response = await fetch(`${API_URL}/auth/isAdmin`, {
+			const response = await fetch(`${apiUrl}/auth/isAdmin`, {
 				method: 'GET',
 				headers: {
 					Authorization: `Bearer ${token}`,

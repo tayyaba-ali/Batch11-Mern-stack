@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
 // Reusable Product Component
 const Product = ({ id, name, price, quantity, imageLight, imageDark, description }) => {
@@ -131,7 +132,7 @@ const Cart = () => {
 			}
 
 			try {
-				const response = await fetch('http://localhost:5000/api/cart', {
+				const response = await fetch(`${apiUrl}/cart`, {
 					method: 'GET',
 					headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
 					credentials: 'include',
