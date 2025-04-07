@@ -12,7 +12,12 @@ import productRoutes from "./routes/productRoutes.js"
 
 app.use(
 	cors({
-		origin: ['http://localhost:5173', 'http://localhost:5174',"https://batch11-mern-stack-1.onrender.com"],
+		origin: [
+			'http://localhost:5173',
+			'http://localhost:5174',
+			'https://batch11-mern-stack-1.onrender.com',
+			'https://batch11-mern-stack.vercel.app/',
+		],
 		methods: ['GET', 'PUT', 'POST', 'DELETE'],
 		credentials: true,
 		allowedHeaders: ['Content-Type', 'Authorization'],
