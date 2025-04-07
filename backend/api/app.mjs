@@ -26,7 +26,7 @@ app.use(
 const __dirname = path.resolve();
 
 // Serve static frontend files
-app.use(express.static(path.join(__dirname, '../dist')));
+app.use(express.static(path.join(__dirname, '../../dist')));
 
 app.use(express.json());
 
@@ -49,7 +49,7 @@ app.use('/api/products', productRoutes);
 // app.use('/api/products', productRoutes);
 
 app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname, '../dist', 'index.html'));
+	res.sendFile(path.join(__dirname, '../../dist', 'index.html'));
 });
 app.listen(PORT, () => {
 	console.log('server is listening 5000');
