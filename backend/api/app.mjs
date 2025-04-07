@@ -21,7 +21,7 @@ app.use(
 const __dirname = path.resolve();
 
 // Serve static frontend files
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, '../dist')));
 
 app.use(express.json());
 
