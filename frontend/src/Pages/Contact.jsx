@@ -46,19 +46,11 @@ const Contact = () => {
 				throw new Error(result.error || 'Failed to send message');
 			}
 
-			Swal.fire({
-				title: result.user === 'New User' ? 'Success!' : 'Submitted Again!',
-				text:
-					result.user === 'New User' ? 'Your message has been submitted!' : 'Your response has been submitted again!',
-				icon: result.user === 'New User' ? 'success' : 'info',
-				confirmButtonColor: '#fc8019',
-			});
+		
 
 			setFormData({ name: '', email: '', message: '' });
 
-			if (result.token) {
-				navigate(`/verify-email/${result.token}`);
-			}
+			
 		} catch (error) {
 			setLoading(false);
 			toast.error('Something went wrong. Please try again.');
