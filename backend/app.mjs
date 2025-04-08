@@ -8,6 +8,7 @@ import userRoutes from "./routes/userRoutes.js";
 import connectToDb from "./db/db.js";
 import cartRoutes from "./routes/cartRoutes.js"
 import productRoutes from "./routes/productRoutes.js"
+import contactRoutes from "./routes/contactRoutes.js"
 
 
 app.use(
@@ -43,6 +44,7 @@ connectToDb();
 app.use('/api/auth', userRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/contact', contactRoutes);
 
 
 
