@@ -14,19 +14,14 @@ import Logout from "./Pages/Logout"
 import AdminPage from './Pages/AdminPage';
 import Products from './Pages/Products';
 import { ToastContainer } from 'react-toastify';
-import { useLocation } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { useLocation } from 'react-router-dom';
 
 const App = () => {
-
-  const location = useLocation()
-  if(location.pathname=="/admin"){
-    return <AdminPage />
+  const location = useLocation();
+  if(location.pathname === '/admin') {
+    return <AdminPage />;
   }
-
-
-
   return (
 		<>
 			<ToastContainer

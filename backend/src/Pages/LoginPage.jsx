@@ -6,10 +6,6 @@ import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../store/authSlice';
 const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
-const apiUrl = import.meta.env.VITE_API_BASE_URL
-console.log(apiUrl)
-
-
 const Login = () => {
 	const [formData, setFormData] = useState({
 		email: '',
@@ -49,7 +45,7 @@ const Login = () => {
 				dispatch(loginSuccess({
 					token:data.token,
 					userId:data.userId
-			}))
+				}))
 				toast.success(data.message);
 
 				navigate('/');
